@@ -1,0 +1,17 @@
+﻿<Window x:Class="RSVP_Feedback_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RSVP-Feedback" Height="920" Width="1700" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Height="900" Width="1700" Name="grid1">
+        <StackPanel Height="430" HorizontalAlignment="Left" Name="targetPanel" VerticalAlignment="Top" Width="1700" Background="#FFCB9797">
+            <StackPanel Height="215" Name="stackPanel1" Width="1650" Orientation="Horizontal" HorizontalAlignment="Right"/>
+            <StackPanel Height="215" Name="stackPanel2" Width="1650" Orientation="Horizontal" HorizontalAlignment="Right"/>
+        </StackPanel>
+
+        <StackPanel Height="435" HorizontalAlignment="Left" Name="nonTargetPanel" VerticalAlignment="Bottom" Width="1700" Background="#FFB0CBA9" >
+            <StackPanel Height="215" Name="stackPanel3" Width="1650" Orientation="Horizontal" HorizontalAlignment="Right"/>
+            <StackPanel Height="215" Name="stackPanel4" Width="1650" Orientation="Horizontal" HorizontalAlignment="Right"/>
+        </StackPanel>
+        <Label x:Name="label1" Content="Accuracy (Pi) = " HorizontalAlignment="Left" Margin="708,425,0,0" VerticalAlignment="Top" Height="40" Width="291" FontSize="24"/>
+    </Grid>
+</Window>
