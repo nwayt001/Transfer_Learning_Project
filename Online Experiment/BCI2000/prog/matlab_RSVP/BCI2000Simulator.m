@@ -2,7 +2,7 @@
 % this program simulates bci2000 for online experimental debuggin
 
 %% load in pilot data (data previously collected using bci2000).
-for i=1:1
+for i=1:7
     [sig2{i} state2{i} parm] = load_data();
 end
 sig=sig2{1};
@@ -29,10 +29,10 @@ onlineChannels = str2double(bci_Parameters.TransmitChList); % <- this is
 % source of the problem!
 % onlineChannels = [idxBio_18' 65 66]';
 
-
+% constructor
+bci_Construct(); tic;
 % run bci sim over all files
 for kk = 1:length(sig2)   
-    
     idx = 1;    % current index in the signal
     % BCI Initialize (Run Once)
     bci_Initialize(in_signal_dims,out_signal_dims);
@@ -54,9 +54,9 @@ for kk = 1:length(sig2)
         idx = idx + blockSize;
         
         % add small delay for realism
-        pause(0.1);
+%         pause(0.1);
     end
     % bci Stop Run
     bci_StopRun();
-    
 end
+toc;

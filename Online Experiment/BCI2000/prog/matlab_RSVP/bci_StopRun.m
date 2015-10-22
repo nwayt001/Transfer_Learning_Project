@@ -27,19 +27,31 @@ function bci_StopRun
 % $END_BCI2000_LICENSE$
 
 % Parameters and states are global variables.
-global udpSocket pred_label gt_labels predLabel;
+global udpSocket pred_label gt_labels predLabel pred_score blockLength;
+global bci_Parameters;
 
-% save the predicted labels and gt from the previous run
-save('pred_label','pred_label');
-save('predLabel','predLabel');
-save('gt_labels','gt_labels');
+pd = pwd;
+dir = [pd(1:end-16) bci_Parameters.DataDirectory.Value{1}(4:end) '\' bci_Parameters.SubjectName.Value{1} ...
+    bci_Parameters.SubjectSession.Value{1} '\Online Results\'];
 
 % Calculate the total balanced accuracy so far
 Pi = balancedAccuracy(predLabel,gt_labels);
 
+% Calculate the total balanced accuracy of the previous run
+PiRun = balancedAccuracy(predLabel(end-(blockLength-1):end),gt_labels(end-(blockLength-1):end));
+
+display(['Accuracy Previous Block: ' num2str(PiRun)]);
+display(['Total Accuracy: ' num2str(Pi)]);
+
 % Send the accuracy to the C# app for feedback
 fb = ['A1'  'S' num2str(Pi)];
-display(Pi);
- fwrite(udpSocket,fb); 
+%  fwrite(udpSocket,fb); 
 % close out the udp socket at the end of the run
- fclose(udpSocket);
+%  fclose(udpSocket);
+
+% save the predicted labels and gt from the previous run for each subject
+save([dir 'pred_label'],'pred_label');
+save([dir 'predLabel'],'predLabel');
+save([dir 'gt_labels'],'gt_labels');
+save([dir 'pred_score'],'pred_score');
+save([dir 'OnlineAccuracy'],'Pi');
