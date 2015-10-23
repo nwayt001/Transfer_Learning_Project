@@ -2,7 +2,7 @@ function out_signal = bci_Process( in_signal )
 %%
 % Global VARS
 global bci_States modelRsvp pred_label gt_labels smlThreshold predLabel;
-global previousSignal currentSignal udpSocket smlWindow;
+global previousSignal currentSignal udpSocket smlWindow Fs;
 global ensembleLabel currentImage previousImage score thresholdArray pred_score;
 
 % do a two-block buffer of signal and image state

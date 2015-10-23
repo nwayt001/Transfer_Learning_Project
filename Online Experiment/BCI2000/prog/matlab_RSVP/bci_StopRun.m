@@ -45,9 +45,9 @@ display(['Total Accuracy: ' num2str(Pi)]);
 
 % Send the accuracy to the C# app for feedback
 fb = ['A1'  'S' num2str(Pi)];
-%  fwrite(udpSocket,fb); 
+ fwrite(udpSocket,fb); 
 % close out the udp socket at the end of the run
-%  fclose(udpSocket);
+ fclose(udpSocket);
 
 % save the predicted labels and gt from the previous run for each subject
 save([dir 'pred_label'],'pred_label');

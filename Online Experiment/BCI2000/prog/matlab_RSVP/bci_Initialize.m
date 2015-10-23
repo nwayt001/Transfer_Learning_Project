@@ -8,21 +8,21 @@ addpath([pwd '/models']);
 % addpath([pwd '\models']);
 
 global modelRsvp smlThreshold bci_Parameters blockLength;
-global previousSignal currentSignal udpSocket smlWindow;
+global previousSignal currentSignal udpSocket smlWindow Fs;
 global ensembleScore ensembleLabel currentImage previousImage thresholdArray;
 
 blockLength = 240;
-
 nchans = length(str2double( bci_Parameters.TransmitChList ));
 if(nchans>18)
     nchans = nchans-2;
 end
 blockSize = str2double( bci_Parameters.SampleBlockSize );
+Fs = bci_Parameters.SamplingRate.NumericValue;
 % initialize global variables
 ensembleScore=zeros(length(modelRsvp),1);
 ensembleLabel=ensembleScore;
 smlThreshold = 32;
-smlWindow = 200;
+smlWindow = 12clear0;
 previousSignal = zeros(nchans,blockSize);
 currentSignal = zeros(nchans,blockSize);
 previousImage=0;
