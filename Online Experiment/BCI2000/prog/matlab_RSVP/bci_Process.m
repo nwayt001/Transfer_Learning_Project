@@ -27,7 +27,7 @@ if(previousImage~=0) % classify
     testObs = [previousSignal currentSignal]; % concatonate previous and current blocks
      
 %     [~, ensembleLabel] = ensembleClassify(testObs,modelRsvp);
-
+%%-----------------------START---------------------------------------%%
     testObs = CreateArtificialTrials(testObs,256,0,1,31.25);
     for j=1:size(testObs,3)
         [tmpScore(:,j), tmpLabel(:,j)] = ensembleClassify(testObs(:,:,j),...
@@ -56,6 +56,8 @@ if(previousImage~=0) % classify
     end
 %     predLabel = sign(score); % <- label refining
     predLabel = [predLabel sign(score)]; % <- No label refining
+    
+    %%-----------------------END---------------------------------------%%
     
     % UDP feedback (images 217 -240 are targets, all else are
     % non-targets)
