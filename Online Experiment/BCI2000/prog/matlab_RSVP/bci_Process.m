@@ -28,6 +28,7 @@ if(previousImage~=0) % classify
      
 %     [~, ensembleLabel] = ensembleClassify(testObs,modelRsvp);
 %%-----------------------START---------------------------------------%%
+% testObs = [18 x 256]
     testObs = CreateArtificialTrials(testObs,256,0,1,31.25);
     for j=1:size(testObs,3)
         [tmpScore(:,j), tmpLabel(:,j)] = ensembleClassify(testObs(:,:,j),...
