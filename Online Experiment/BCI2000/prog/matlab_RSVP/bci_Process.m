@@ -27,7 +27,7 @@ if(previousImage~=0) % classify
     testObs = [previousSignal currentSignal]; % concatonate previous and current blocks
     
     % data boosting
-    testObs = CreateArtificialTrials(testObs,256,0,1,31.25);
+    testObs = CreateArtificialTrials(testObs,256,0,1,31.25,[]);
     for j=1:size(testObs,3)
         [tmpScore(:,j), tmpLabel(:,j)] = ensembleClassify(testObs(:,:,j),...
             modelRsvp);
