@@ -42,20 +42,28 @@ if(previousImage~=0) % classify
     pred_label = [pred_label ensembleLabel];
     
     if(size(pred_label,2)>smlWindow)
-        thresh_labels=zeros(length(thresholdArray),smlWindow);
+        new_score = zeros(length(thresholdArray),smlWindow);
+        thresh_labels=zeros(size(pred_label,1),smlWindow);
     else
-        thresh_labels=zeros(length(thresholdArray),size(pred_label,2));
+        new_score = zeros(length(thresholdArray),smlWindow);
+        thresh_labels=zeros(size(pred_label,1),size(pred_label,2));
     end
     if(size(pred_label,2) > smlThreshold) %apply sml if enough observations
-        for thresh = 1:length(thresholdArray)
-            if(size(pred_label,2)>smlWindow)
-                new_score = pred_score(:,end-(smlWindow-1):end) - thresholdArray(thresh);
-            else
-                new_score = pred_score - thresholdArray(thresh);
+        for sub = 1:size(pred_label,1)
+            for thresh = 1:length(thresholdArray)
+                if(size(pred_label,2)>smlWindow)
+                    new_score(thresh,:) = pred_score(sub,end-(smlWindow-1):end) - thresholdArray(thresh);
+                else
+                    new_score(thresh,:) = pred_score(sub,:) - thresholdArray(thresh);
+                end
             end
             new_label = sign(new_score);
+            try
             smlWeight = applySML(new_label);
-            thresh_labels(thresh,:)=sign(smlWeight'*new_label);
+            catch
+                smlWeight = (1/length(thresholdArray)) * ones( length(thresholdArray),1 );
+            end
+            thresh_labels(sub,:)=sign(smlWeight'*new_label);
         end
         smlWeight = applySML(thresh_labels);
         score = smlWeight'*thresh_labels(:,end);
@@ -65,7 +73,6 @@ if(previousImage~=0) % classify
     end
     predLabel = [predLabel sign(score)]; % <- No label refining
     
-    
     %% Feedback
     % UDP code - 'Prediction(T or N):ImageNumber(1-240):S:score'
     if(sign(score)>=0)
@@ -73,7 +80,7 @@ if(previousImage~=0) % classify
     else
         fb = ['N' int2str(previousImage) 'S' num2str(score)];
     end
-    fwrite(udpSocket,fb); % send feedback to c# application via udp
+%     fwrite(udpSocket,fb); % send feedback to c# application via udp
 
     % gt label array
     if(previousImage >216)
