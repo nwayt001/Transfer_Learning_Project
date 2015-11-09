@@ -24,6 +24,7 @@ namespace RSVP_Feedback_WPF
         public bool isTarget;
         public bool isPredictedTarget;
         public bool displayAccuracy;
+        public int AccType;
         public double balAcc;
     }
 
@@ -97,8 +98,10 @@ namespace RSVP_Feedback_WPF
                 accChar[i] = acc[i];
             }
 
-            label1.Content = string.Concat("Accuracy (Pi) = ", new string(accChar)," %");
-
+            if(imageFeedback.AccType==1)
+                label1.Content = string.Concat("Total Accuracy (Pi) = ", new string(accChar)," %");
+            else
+                label2.Content = string.Concat("Run Accuracy (Pi) = ", new string(accChar), " %");
             Console.WriteLine(new string(accChar));
         }
 
@@ -176,7 +179,7 @@ namespace RSVP_Feedback_WPF
                 // Update
                  stackPanel1.Children.RemoveRange(0, stackPanel1.Children.Count);
                  stackPanel2.Children.RemoveRange(0, stackPanel2.Children.Count);
-                 for (int j = 0; j < CurrentTargetScores.Length-1; j++)
+                 for (int j = 0; j < CurrentTargetScores.Length; j++)
                  {
                      if (j < 5)
                          stackPanel1.Children.Add(CurrentTargetImages[j]);
@@ -194,7 +197,7 @@ namespace RSVP_Feedback_WPF
                 // Update
                 stackPanel3.Children.RemoveRange(0, stackPanel3.Children.Count);
                 stackPanel4.Children.RemoveRange(0, stackPanel4.Children.Count);
-                for (int j = 0; j < CurrentTargetScores.Length-1; j++)
+                for (int j = 0; j < CurrentTargetScores.Length; j++)
                 {
                     if (j < 5)
                         stackPanel3.Children.Add(CurrentNonTargetImages[j]);

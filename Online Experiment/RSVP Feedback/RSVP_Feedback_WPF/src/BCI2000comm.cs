@@ -168,12 +168,21 @@ namespace RSVP_Feedback_WPF
                     imageFeedback.isPredictedTarget = false;
                     mainWindow.mUiContext.Post(mainWindow.UpdateImage, imageFeedback);
                 }
-                else
+                else if (c[0] == 'A')
                 {
                     imageFeedback.displayAccuracy = true;
+                    imageFeedback.AccType = 1;
                     imageFeedback.balAcc = imageFeedback.score;
                     mainWindow.mUiContext.Post(mainWindow.UpdateAccuracy, imageFeedback);
                 }
+                else
+                {
+                    imageFeedback.displayAccuracy = true;
+                    imageFeedback.AccType = 2;
+                    imageFeedback.balAcc = imageFeedback.score;
+                    mainWindow.mUiContext.Post(mainWindow.UpdateAccuracy, imageFeedback);
+                }
+                
                 
             }
                 
