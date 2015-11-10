@@ -43,4 +43,4 @@ modelRsvp=modelRsvptmp;
  fopen(udpSocket);
 
  % to-sml
- thresholdArray = -0.06:0.005:-0.01;
+ thresholdArray = -0.15:0.01:0.1;

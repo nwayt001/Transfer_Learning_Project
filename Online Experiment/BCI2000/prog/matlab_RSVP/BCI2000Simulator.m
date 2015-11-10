@@ -2,9 +2,10 @@
 % this program simulates bci2000 for online experimental debuggin
 
 %% load in pilot data (data previously collected using bci2000).
-for i=1:7
-    [sig2{i} state2{i} parm] = load_data();
-end
+% for i=1:7
+%     [sig2{i} state2{i} parm] = load_data();
+% end
+load('tmpAWBdata');
 sig=sig2{1};
 state=state2{1};
 sig = sig'; % <-- to match bci2000 convention
@@ -16,9 +17,9 @@ bci_Parameters = parm;
 pred_label = [];
 gt_labels =[];
 predLabel=[];
-save('predLabel','predLabel');
-save('pred_label','pred_label');
-save('gt_labels','gt_labels');
+% save('predLabel','predLabel');
+% save('pred_label','pred_label');
+% save('gt_labels','gt_labels');
 in_signal_dims = [128 66];
 out_signal_dims = [128 66];
 bci_Parameters.TransmitChList = bci_Parameters.TransmitChList.Value;

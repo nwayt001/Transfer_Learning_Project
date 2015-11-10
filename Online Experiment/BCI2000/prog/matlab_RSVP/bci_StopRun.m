@@ -32,7 +32,7 @@ global bci_Parameters;
 
 pd = pwd;
 dir = [pd(1:end-16) bci_Parameters.DataDirectory.Value{1}(4:end) '\' bci_Parameters.SubjectName.Value{1} ...
-    bci_Parameters.SubjectSession.Value{1} '\Online Results\'];
+    bci_Parameters.SubjectSession.Value{1} '\'];
 
 % Calculate the total balanced accuracy so far
 Pi = balancedAccuracy(predLabel,gt_labels);
@@ -46,6 +46,8 @@ display(['Total Accuracy: ' num2str(Pi)]);
 % Send the accuracy to the C# app for feedback
 fb = ['A1'  'S' num2str(Pi)];
  fwrite(udpSocket,fb); 
+fb = ['K1'  'S' num2str(PiRun)];
+ fwrite(udpSocket,fb);
 % close out the udp socket at the end of the run
  fclose(udpSocket);
 

@@ -28,12 +28,13 @@ function [ parameters, states ] = bci_Construct
 % 
 % $END_BCI2000_LICENSE$
 global pred_label gt_labels predLabel displayedImages;
-global topTargetImages topNonTargetImages pred_score;
+global topTargetImages topNonTargetImages pred_score AllScore;
 
 pred_label = [];
 pred_score = [];
 gt_labels = [];
 predLabel =[];
+AllScore =[];
 displayedImages = [];
 
 topTargetImages = zeros(1,10);
